@@ -55,7 +55,8 @@ The validation set of PCam is used as a training set for the linear evaluation a
 
 ### Downstream tasking on CRC & MHIST
 We use the pre-trained encoder on pkgh, pkgh-800 and pkgh-600 and perform a linear evaluation to evaluate the generalizability of the embedded features to MHIST and NCT-CRC-7k. We report the accuracy and AUC in the Table below:
-- for MHIST
+First, for MHIST
+  
 | Models | pkgh |pkgh-800 |pkgh-600 |
 | ------------- | ------------- |------------- |------------- |
 |basicBT |82.8|82.9|83.44|
