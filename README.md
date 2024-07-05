@@ -23,17 +23,29 @@ For downstream tasking, we train a linear layer on top of the frozen backbone (p
 Results are also compared with the pretrained weights of this following [work)(https://lunit-io.github.io/research/publications/pathology_ssl/) where a ResNet-50 encoder was trained in Barlow Twins setting on a very large cohort of 36K WSIs.
 ### Patch-level classification on KGH datasets
 The training dataset to train the linear layer is a balanced set of 3500 patches per class. The test set is a balanced set of 300 patches per class from the test slides. All patches where randomly chosen.
+We report the accuracy and AUC (below) of the different models.
 | Dataset-FoV      | RN-50 sup | Swin-T sup | basicBT | imBT | benchBT | pathBT | swinBT |
 | ------------- | ------------- |------------- |------------- |------------- |------------- |------------- |------------- |
-| pkgh(1400 | 81.85 |82.67|78.77|81.32|75.86|83.43|86.15|
+| pkgh-1400 | 81.85 |82.67|78.77|81.32|75.86|83.43|86.15|
 |           | 0.893 | 0.9119 |0.9592 | 0.9618 |0.8478|0.9652|0.9764|
 | pkgh-800 | 80.6 | 84.17 | 81.27 | 81.3 | 75.9 | 83.84 | 86.47 |
 |          | 0.909 | 0.9161 | 0.9668 | 0.9576 | 0.842 | 0.9676 | 0.9822 |
 | pkgh-600 | 81.43 | 83.17 | 80.54 | 82.26 | 74.9 | 81.84 | 84.17 |
 |          | 0.91 | 0.8519 | 0.9613 |0.9613 | 0.8424 | 0.9599 | 0.9728 |
-| pkgh-419 | 80.52 | 80.86 | 80.06 | 82.57 | 74.03 | 80.4 | 82.37 |
+| pkgh-410 | 80.52 | 80.86 | 80.06 | 82.57 | 74.03 | 80.4 | 82.37 |
 |          | 0.8774 | 0.8965 | 0.9720 | 0.9649 |0.8427 |0.9515 |0.9657 |
 ### Slide-level classification on KGH datasets
+We report the accuracy and AUC (below) of the MIL models trained on the different encoders.
+| Dataset-FoV      | RN-50 sup | Swin-T sup | basicBT | imBT | benchBT | pathBT | swinBT |
+| ------------- | ------------- |------------- |------------- |------------- |------------- |------------- |------------- |
+| pkgh-1400 | 87.08 | 87.67 | 86.3 | 90.41 | 80.82 |91.8|91.78|
+|           | 0.9647|0.9807|0.9819|0.9854|0.9552|0.9862|0.9908|
+| pkgh-800 | 91.78 |91.78|94.52|91.7|89.04|89.04|87.67|
+|          | 0.9935 |0.9951|0.9894|0.9899|0.976|0.9812|0.9891|
+|pkgh-600|87.67|89.04|89.04|91.8|.|89.04|93.15 |
+|        |0.9856|0.9908|0.9842|0.9896|.|0.9812|0.9932|
+|pkgh-410|91.78|87.67|90.41|95.89|.|87.67|89.04|
+|        |0.9905|0.984|0.9941|0.9966|.|0.9819|0.992|
 ### Patch-level classification on PCam dataset
 ### Downstream tasking on CRC & MHIST
 
