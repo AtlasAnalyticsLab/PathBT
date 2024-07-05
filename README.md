@@ -47,7 +47,25 @@ We report the accuracy and AUC (below) of the MIL models trained on the differen
 |pkgh-410|91.78|87.67|90.41|95.89|.|87.67|89.04|
 |        |0.9905|0.984|0.9941|0.9966|.|0.9819|0.992|
 ### Patch-level classification on PCam dataset
+We train the encoders in similar settings as in the experiment above on PCam training set. We use Barlow Twins with a batch size of 256.
+The validation set of PCam is used as a training set for the linear evaluation and we report in the Table below the test accuracy from PCam test set.
+| | basicBT | imBT | benchBT | pathBT | swinBT |
+| ------------- | ------------- |------------- |------------- |------------- |------------- |
+|69.2 |69.84|88.79|70.5|79.63|
+
 ### Downstream tasking on CRC & MHIST
+We use the pre-trained encoder on pkgh, pkgh-800 and pkgh-600 and perform a linear evaluation to evaluate the generalizability of the embedded features to MHIST and NCT-CRC-7k. We report the accuracy and AUC in the Table below:
+- for MHIST
+| Models | pkgh |pkgh-800 |pkgh-600 |
+| ------------- | ------------- |------------- |------------- |
+|basicBT |82.8|82.9|83.44|
+|      |0.8267 |0.8338|0.8344|
+|imBT | 81.68|81.17|83.11|
+|     | 0.8084|0.8179|0.8304|
+|pathBT| 76.05 |74.63 |73.92 |
+|      | 0.7563 |0.7392|0.7361|
+|swinBT|79.12 |76.56|77.79|
+|      | 0.7634 |0.7408|0.7628|
 
 ## 🖌️ Explainability of the results
 ### Confusion matrices
