@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 python create_heatmaps.py --config /home/huron/Documents/Clam/CLAM/heatmaps/configs/pkgh_config.yaml
