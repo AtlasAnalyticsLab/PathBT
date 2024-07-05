@@ -22,6 +22,17 @@ We evaluate the modes on the patch and slide level:
 For downstream tasking, we train a linear layer on top of the frozen backbone (pretrained on KGH datasets)
 Results are also compared with the pretrained weights of this following [work)(https://lunit-io.github.io/research/publications/pathology_ssl/) where a ResNet-50 encoder was trained in Barlow Twins setting on a very large cohort of 36K WSIs.
 ### Patch-level classification on KGH datasets
+The training dataset to train the linear layer is a balanced set of 3500 patches per class. The test set is a balanced set of 300 patches per class from the test slides. All patches where randomly chosen.
+| Dataset-FoV      | RN-50 sup | Swin-T sup | basicBT | imBT | benchBT | pathBT | swinBT |
+| ------------- | ------------- |------------- |------------- |------------- |------------- |------------- |------------- |
+| pkgh(1400 | 81.85 |82.67|78.77|81.32|75.86|83.43|86.15|
+|           | 0.893 | 0.9119 |0.9592 | 0.9618 |0.8478|0.9652|0.9764|
+| pkgh-800 | 80.6 | 84.17 | 81.27 | 81.3 | 75.9 | 83.84 | 86.47 |
+|          | 0.909 | 0.9161 | 0.9668 | 0.9576 | 0.842 | 0.9676 | 0.9822 |
+| pkgh-600 | 81.43 | 83.17 | 80.54 | 82.26 | 74.9 | 81.84 | 84.17 |
+|          | 0.91 | 0.8519 | 0.9613 |0.9613 | 0.8424 | 0.9599 | 0.9728 |
+| pkgh-419 | 80.52 | 80.86 | 80.06 | 82.57 | 74.03 | 80.4 | 82.37 |
+|          | 0.8774 | 0.8965 | 0.9720 | 0.9649 |0.8427 |0.9515 |0.9657 |
 ### Slide-level classification on KGH datasets
 ### Patch-level classification on PCam dataset
 ### Downstream tasking on CRC & MHIST
