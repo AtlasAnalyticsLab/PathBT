@@ -68,10 +68,6 @@ First, for MHIST
 |swinBT|79.12 |76.56|77.79|
 |      | 0.7634 |0.7408|0.7628|
 
-## 🖌️ Explainability of the results
-### Confusion matrices
-### GradCAM & SHAP
-### CLAM
 
 ## 🦾 To train your own pathBT
 ### Environment
