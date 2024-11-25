@@ -1,5 +1,6 @@
 # Enhanced Barlow Twins for Colorectal Polyp Screening
 🚀 We propose an optimized Barlow Twins for colorectal polyp screening. The augmentation strategy was carefully studied to fit our dataset, a dataset from Kingston General Hospital made of 1037 WSIs from pathology (Hyperplatis Polyps, Sessile Serrated Lesions, Tubular Adenoma, Tubulovillous Adenoma) and histology colon. Using ResNet50 or Swin-Tiny, our porposed models perfom better than the basic Barlow Twins on the patch level and better than the basic Barlow Twins with limited data on the slide level.
+Have a look at our [paper](https://arxiv.org/abs/2411.05959)!
 <div align="center">
   <img width="35%" alt="Watercolor-colon" src="assets/MHIST-dallE.jpeg">
 </div>
