@@ -24,7 +24,8 @@ import numpy as np
 import pandas as pd
 from factory import BarlowTwins, backbone_eval, modify_last_layer, set_mean_std, choice_dataset_eval
 from RandStainNA.randstainna import RandStainNA
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, average_precision_score
+from sklearn.preprocessing import label_binarize
 
 
 ####################
@@ -271,6 +272,7 @@ def main_worker(gpu, args):
             assert torch.equal(model_state_dict[k].cpu(), reference_state_dict[k].cpu()), k
         print("--- sanity check done")
     best_auc = 0
+    best_pr_auc = 0
     ############## TRAINING ##############
     for epoch in range(start_epoch, args.epochs):
         # train
@@ -338,7 +340,22 @@ def main_worker(gpu, args):
                 state = model.state_dict()
                 name_file = 'BEST-AUC-exp{}-{}-{}-{}.pth'.format(args.exp_id, args.backbone,args.dataset, args.batch_size)
                 torch.save(state, args.folder_eval / name_file)
-
+            
+            # PR-AUC computation
+            n_classes = len(set(true_labels))
+            true_labels_oh = label_binarize(true_labels, classes=list(range(n_classes)))
+            # Average precision score per class (PR-AUC)
+            pr_auc_per_class = average_precision_score(true_labels_oh, outputs, average=None)
+            # Macro-average PR-AUC
+            pr_auc_macro = average_precision_score(true_labels_oh, outputs, average="macro")
+            # save model if best prAUC
+            if pr_auc_macro > best_pr_auc:
+                best_pr_auc = pr_auc_macro
+                print(f"Saving new best model with pr-AUC of {best_pr_auc}")
+                state = model.state_dict()
+                name_file = 'BEST-prAUC-exp{}-{}-{}-{}.pth'.format(args.exp_id, args.backbone,args.dataset, args.batch_size)
+                torch.save(state, args.folder_eval / name_file)
+          
             # save model if best ACC
             if top1.avg > best_acc.top1:
                 #save best test model
@@ -356,7 +373,7 @@ def main_worker(gpu, args):
             print(json.dumps(stats))
             print(json.dumps(stats), file=stats_file)
         if args.wandb:
-            wandb.log({"training loss": np.mean(losses),"validation loss": np.mean(val_losses), "acc1": top1.avg, "AUC":AUC_ovo, "acc2": top2.avg, "acc3": top3.avg})
+            wandb.log({"training loss": np.mean(losses),"validation loss": np.mean(val_losses), "acc1": top1.avg, "AUC":AUC_ovo, "acc2": top2.avg, "acc3": top3.avg, "PR-AUC": pr_auc_macro})
         # sanity check
         if args.weights == 'freeze':
             # reference_state_dict = torch.load(args.pretrained, map_location='cpu')
